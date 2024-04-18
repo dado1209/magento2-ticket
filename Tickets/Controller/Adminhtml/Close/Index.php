@@ -42,7 +42,6 @@ class Index extends Action
     {
         $this->storeManager = $storeManager;
         $this->ticketRepository = $ticketRepository;
-        $this->eventManager = $eventManager;
         $this->backendUrl = $backendUrl;
         parent::__construct($context);
     }
