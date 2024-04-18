@@ -13,10 +13,10 @@ use Magento\Framework\App\Action\Context;
 use Magento\Framework\Controller\Result\Redirect;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Data\Form\FormKey\Validator;
-use Magento\Framework\Event\ManagerInterface;
 use Magento\Framework\Exception\InputException;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Sales\Model\ResourceModel\Order\CollectionFactory;
+
 
 
 class TicketPost extends Action
@@ -43,13 +43,11 @@ class TicketPost extends Action
      */
     private TicketRepositoryInterface $ticketRepository;
     /**
-     * @var ManagerInterface
-     */
-    private ManagerInterface $eventManager;
-    /**
      * @var CollectionFactory
      */
     private CollectionFactory $orderCollectionFactory;
+
+
 
     /**
      * TicketPost constructor.
@@ -59,7 +57,6 @@ class TicketPost extends Action
      * @param TicketFactory $ticketModelFactory
      * @param StoreManagerInterface $storeManager
      * @param TicketRepositoryInterface $ticketRepository
-     * @param ManagerInterface $eventManager
      * @param CollectionFactory $orderCollectionFactory
      */
     public function __construct(
@@ -69,7 +66,6 @@ class TicketPost extends Action
         TicketFactory             $ticketModelFactory,
         StoreManagerInterface     $storeManager,
         TicketRepositoryInterface $ticketRepository,
-        ManagerInterface          $eventManager,
         CollectionFactory         $orderCollectionFactory,
     )
     {
@@ -78,7 +74,6 @@ class TicketPost extends Action
         $this->ticketModelFactory = $ticketModelFactory;
         $this->storeManager = $storeManager;
         $this->ticketRepository = $ticketRepository;
-        $this->eventManager = $eventManager;
         $this->orderCollectionFactory = $orderCollectionFactory;
         parent::__construct($context);
     }
@@ -88,8 +83,11 @@ class TicketPost extends Action
      */
     public function execute(): Redirect
     {
-        $this->eventManager->dispatch('check_login');
         $redirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
+        $redirect->setUrl('/customer/account/login');
+        if (!$this->customerSession->isLoggedIn()) {
+            return $redirect;
+        }
         $redirect->setUrl('/tickets/view/history');
         try {
             $postValues = $this->getTicketPostValues();

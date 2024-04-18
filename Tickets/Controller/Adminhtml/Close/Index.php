@@ -9,7 +9,6 @@ use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\Controller\Result\Redirect;
 use Magento\Framework\Controller\ResultFactory;
-use Magento\Framework\Event\ManagerInterface;
 use Magento\Store\Model\StoreManagerInterface;
 
 class Index extends Action
@@ -23,10 +22,6 @@ class Index extends Action
      */
     private TicketRepositoryInterface $ticketRepository;
     /**
-     * @var ManagerInterface
-     */
-    private ManagerInterface $eventManager;
-    /**
      * @var UrlInterface
      */
     private UrlInterface $backendUrl;
@@ -36,14 +31,12 @@ class Index extends Action
      * @param Context $context
      * @param StoreManagerInterface $storeManager
      * @param TicketRepositoryInterface $ticketRepository
-     * @param ManagerInterface $eventManager
      * @param UrlInterface $backendUrl
      */
     public function __construct(
         Context                   $context,
         StoreManagerInterface     $storeManager,
         TicketRepositoryInterface $ticketRepository,
-        ManagerInterface          $eventManager,
         UrlInterface              $backendUrl,
     )
     {
@@ -59,7 +52,6 @@ class Index extends Action
      */
     public function execute(): Redirect
     {
-        $this->eventManager->dispatch('check_login');
         $redirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
         $redirect->setUrl($this->backendUrl->getUrl('tickets/view/history'));
         try {

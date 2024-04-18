@@ -37,7 +37,7 @@
         <dataProvider class="Favicode\Tickets\Ui\Component\ReplyForm\DataProvider" name="view_reply_form_data_source">
             <settings>
                 <requestFieldName>ticket_id</requestFieldName>
-                <primaryFieldName>ticket_id</primaryFieldName>
+                <primaryFieldName>[new_field_name,new_field_name2]</primaryFieldName>
             </settings>
         </dataProvider>
     </dataSource>

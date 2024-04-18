@@ -4,10 +4,12 @@ namespace Favicode\Tickets\Controller\Create;
 
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
-use Magento\Framework\Event\ManagerInterface;
 use Magento\Framework\View\Result\Page;
 use Magento\Framework\View\Result\PageFactory;
+use Magento\Customer\Model\Session;
 
+use Magento\Framework\Controller\Result\Redirect;
+use Magento\Framework\Controller\ResultFactory;
 class Index extends Action
 {
     /**
@@ -15,33 +17,37 @@ class Index extends Action
      */
     private PageFactory $resultPageFactory;
     /**
-     * @var ManagerInterface
+     * @var Session
      */
-    private ManagerInterface $eventManager;
+    private Session $customerSession;
 
     /**
      * Index constructor.
      * @param Context $context
      * @param PageFactory $resultPageFactory
-     * @param ManagerInterface $eventManager
+     * @param Session $customerSession
      */
     public function __construct(
         Context          $context,
         PageFactory      $resultPageFactory,
-        ManagerInterface $eventManager
+        Session $customerSession
     )
     {
         $this->resultPageFactory = $resultPageFactory;
-        $this->eventManager = $eventManager;
+        $this->customerSession = $customerSession;
         parent::__construct($context);
     }
 
     /**
-     * @return Page
+     * @return Page | Redirect
      */
-    public function execute(): Page
+    public function execute(): Page | Redirect
     {
-        $this->eventManager->dispatch('check_login');
+        $redirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
+        $redirect->setUrl('/customer/account/login');
+        if (!$this->customerSession->isLoggedIn()) {
+            return $redirect;
+        }
         return $this->resultPageFactory->create();
     }
 }

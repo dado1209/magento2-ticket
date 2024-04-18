@@ -15,7 +15,6 @@ use Magento\Framework\App\Action\Context;
 use Magento\Framework\Controller\Result\Redirect;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Data\Form\FormKey\Validator;
-use Magento\Framework\Event\ManagerInterface;
 use Magento\Framework\Exception\InputException;
 use Magento\Store\Model\StoreManagerInterface;
 
@@ -26,8 +25,6 @@ class TicketReplyPost extends Action
     private StoreManagerInterface $storeManager;
 
     private TicketRepositoryInterface $ticketRepository;
-    private ManagerInterface $eventManager;
-
     private Session $authSession;
     private UrlInterface $backendUrl;
 
@@ -43,7 +40,6 @@ class TicketReplyPost extends Action
      * @param StoreManagerInterface $storeManager
      * @param TicketReplyFactory $ticketReplyModelFactory
      * @param TicketRepositoryInterface $ticketRepository
-     * @param ManagerInterface $eventManager
      * @param Session $authSession
      * @param UrlInterface $backendUrl
      * @param TicketReplyRepositoryInterface $ticketReplyRepository
@@ -54,7 +50,6 @@ class TicketReplyPost extends Action
         StoreManagerInterface     $storeManager,
         TicketReplyFactory        $ticketReplyModelFactory,
         TicketRepositoryInterface $ticketRepository,
-        ManagerInterface          $eventManager,
         Session                   $authSession,
         UrlInterface              $backendUrl,
         TicketReplyRepositoryInterface $ticketReplyRepository,
@@ -64,7 +59,6 @@ class TicketReplyPost extends Action
         $this->storeManager = $storeManager;
         $this->ticketReplyModelFactory = $ticketReplyModelFactory;
         $this->ticketRepository = $ticketRepository;
-        $this->eventManager = $eventManager;
         $this->authSession = $authSession;
         $this->backendUrl = $backendUrl;
         $this->ticketReplyRepository = $ticketReplyRepository;
@@ -76,7 +70,6 @@ class TicketReplyPost extends Action
      */
     public function execute(): Redirect
     {
-        $this->eventManager->dispatch('check_login');
         $redirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
         $redirect->setUrl($this->backendUrl->getUrl('tickets/view/history'));
         try {

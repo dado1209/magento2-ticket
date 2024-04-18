@@ -9,7 +9,6 @@ use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\Controller\Result\Redirect;
 use Magento\Framework\Controller\ResultFactory;
-use Magento\Framework\Event\ManagerInterface;
 use Magento\Store\Model\StoreManagerInterface;
 
 class Index extends Action
@@ -26,10 +25,7 @@ class Index extends Action
      * @var TicketRepositoryInterface
      */
     private TicketRepositoryInterface $ticketRepository;
-    /**
-     * @var ManagerInterface
-     */
-    private ManagerInterface $eventManager;
+
 
     /**
      * Index constructor.
@@ -37,20 +33,17 @@ class Index extends Action
      * @param Session $customerSession
      * @param StoreManagerInterface $storeManager
      * @param TicketRepositoryInterface $ticketRepository
-     * @param ManagerInterface $eventManager
      */
     public function __construct(
         Context                   $context,
         Session                   $customerSession,
         StoreManagerInterface     $storeManager,
         TicketRepositoryInterface $ticketRepository,
-        ManagerInterface          $eventManager
     )
     {
         $this->customerSession = $customerSession;
         $this->storeManager = $storeManager;
         $this->ticketRepository = $ticketRepository;
-        $this->eventManager = $eventManager;
         parent::__construct($context);
     }
 
@@ -59,8 +52,11 @@ class Index extends Action
      */
     public function execute(): Redirect
     {
-        $this->eventManager->dispatch('check_login');
         $redirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
+        $redirect->setUrl('/customer/account/login');
+        if (!$this->customerSession->isLoggedIn()) {
+            return $redirect;
+        }
         $redirect->setUrl('/tickets/view/history');
         try {
             $ticketId = $this->getRequest()->getParam('ticket_id');
