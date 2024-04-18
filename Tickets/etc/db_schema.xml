@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+
+    <table name="favicode_tickets" resource="default" engine="innodb" comment="Tickets Table">
+
+        <column xsi:type="int" name="ticket_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Ticket ID"/>
+
+        <column xsi:type="int" name="order_id" padding="10" unsigned="true" nullable="false"
+                comment="Order ID"/>
+
+        <column xsi:type="int" name="user_id" padding="10" unsigned="true" nullable="false"
+                comment="User ID"/>
+
+        <column xsi:type="boolean" name="is_open" nullable="false" default="true" comment="Ticket Status"/>
+
+        <column xsi:type="varchar" name="title" nullable="false" length="255" comment="Ticket Title"/>
+
+        <column xsi:type="text" name="summary" nullable="false" comment="Ticket Summary"/>
+
+        <column xsi:type="int" name="website_id" padding="10" unsigned="true" nullable="false"
+                comment="Website ID"/>
+
+
+        <column xsi:type="datetime" name="created_at" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created at"/>
+
+        <column xsi:type="datetime" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated at"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="ticket_id"/>
+            <column name="website_id"/>
+        </constraint>
+
+        <constraint xsi:type="foreign" referenceId="FK_TICKETS_TICKETS_ID_CUSTOMER_ENTITY_ENTITY_ID"
+                    table="favicode_tickets" column="user_id"
+                    referenceTable="customer_entity" referenceColumn="entity_id" onDelete="CASCADE"/>
+    </table>
+
+    <table name="favicode_ticket_replies" resource="default" engine="innodb" comment="Ticket replies Table">
+
+        <column xsi:type="int" name="ticket_reply_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Ticket reply ID"/>
+
+        <column xsi:type="int" name="ticket_id" padding="10" unsigned="true" nullable="false"
+                comment="Ticket ID"/>
+
+        <column xsi:type="int" name="user_id" padding="10" unsigned="true" nullable="false"
+                comment="User ID"/>
+
+        <column xsi:type="text" name="summary" nullable="false" comment="Ticket Summary"/>
+
+        <column xsi:type="datetime" name="created_at" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created at"/>
+
+        <column xsi:type="datetime" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated at"/>
+
+        <column xsi:type="int" name="website_id" padding="10" unsigned="true" nullable="false"
+                comment="Website ID"/>
+
+        <column xsi:type="boolean" name="is_user_admin" nullable="false" default="false" comment="Is Reply from admin"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="ticket_reply_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="FK_TICKETS_TICKETS_ID_TICKET_REPLIES_TICKET_ID"
+                    table="favicode_ticket_replies" column="ticket_id"
+                    referenceTable="favicode_tickets" referenceColumn="ticket_id" onDelete="CASCADE"/>
+    </table>
+</schema>

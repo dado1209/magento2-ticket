@@ -1,0 +1,26 @@
+{
+    "favicode_news": {
+        "column": {
+            "news_id": true,
+            "title": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "favicode_news_comments": {
+        "column": {
+            "news_id": true,
+            "comment_id": true,
+            "text": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FAVICODE_NEWS_COMMENTS_NEWS_ID_FAVICODE_NEWS_NEWS_ID": true
+        }
+    }
+}

@@ -1,0 +1,16 @@
+<?php
+/**
+ * @var \Favicode\Sample03\Block\ViewNews $block
+ * @var \Favicode\Sample03\Model\ResourceModel\News\ $news
+ */
+?>
+
+
+<?php if($block->getNewsById()->getTitle()): ?>
+    <h1>News title: <?= $block->getNewsById()->getTitle(); ?></h1>
+<?php else: ?>
+    <h1>News not found</h1>
+<?php endif; ?>
+
+
+

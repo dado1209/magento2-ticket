@@ -1,0 +1,90 @@
+<?php if ($ticket = $this->getTicketById()): ?>
+    <h1>Ticket title: <?= $this->escapeHtml($ticket->getTitle()); ?></h1>
+    <div style="margin-top: 10px;">
+        <div style="float: width: 80%;">
+            <p style="word-wrap: break-word;">
+                Summary: <?= $this->escapeHtml($ticket->getSummary()); ?>
+            </p>
+        </div>
+        <div style="text-align: right;">
+            <div style="float: right;">
+                <p>Created by <?= $this->escapeHtml($this->getCustomerById($ticket->getUserId())->getFirstName()); ?>
+                    at <?= $this->escapeHtml($ticket->getCreatedAt()); ?> </p>
+
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <h2>Replies:</h2>
+        <ul>
+            <?php foreach ($this->getTicketReplies($ticket) as $reply): ?>
+                <li>
+                    <div style="margin-top: 10px; overflow: hidden;">
+                        <div style="float: left; width: 80%;">
+                            <p style="word-wrap: break-word;">
+                                Reply: <?= $this->escapeHtml($reply->getSummary()); ?>
+                            </p>
+                        </div>
+
+                        <div style="float: right; width: 20%;">
+                            <?php if ($reply->getIsUserAdmin()): ?>
+                                <p>Created
+                                    by <?= $this->escapeHtml($this->getAdminById($reply->getUserId())->getFirstName()); ?>
+                                    at <?= $this->escapeHtml($reply->getCreatedAt()); ?> </p>
+                            <?php else: ?>
+                                <p>Created
+                                    by <?= $this->escapeHtml($this->getCustomerById($reply->getUserId())->getFirstName()); ?>
+                                    at <?= $this->escapeHtml($reply->getCreatedAt()); ?> </p>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+
+    <div id="replyForm" style="display: none;">
+        <form action="<?php echo $this->getUrl('tickets/create/TicketReplyPost'); ?>" method="post">
+            <?= $this->getBlockHtml('formkey'); ?>
+            <input type="hidden" name="ticket_id" value="<?= $this->escapeHtml($ticket->getId()); ?>">
+            <div class="field required">
+                <label class="label" for="reply-summary">Reply Summary</label>
+                <div class="control">
+                    <textarea id="reply-summary" name="summary" class="textarea" rows="5" required></textarea>
+                </div>
+            </div>
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <button type="submit" title="Submit" class="action submit primary">
+                        <span>Submit</span>
+                    </button>
+                    <button type="button" onclick="toggleReplyForm()">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <button onclick="toggleReplyForm()" class="action">Reply</button>
+
+    <button class="col-redirect">
+        <a href="<?php echo $this->getUrl('tickets/close/index', ['ticket_id' => $ticket->getTicketId()]); ?>"
+           class="action">
+            <span>Close Ticket</span>
+        </a>
+    </button>
+
+<?php else: ?>
+    <h1>Ticket not found</h1>
+<?php endif; ?>
+
+<script>
+    function toggleReplyForm() {
+        const form = document.getElementById('replyForm');
+        if (form.style.display === 'none') {
+            form.style.display = 'block';
+        } else {
+            form.style.display = 'none';
+        }
+    }
+</script>

@@ -1,0 +1,50 @@
+<h1>Ticket history</h1>
+
+<style>
+    .ticket-info {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+
+    .ticket-info > div {
+        flex: 1;
+        margin-right: 10px;
+    }
+
+    .ticket-info a {
+        flex: 1;
+    }
+
+    .create-ticket-button {
+        bottom: 20px;
+        right: 20px;
+    }
+</style>
+<div>
+
+</div>
+<ul>
+    <?php foreach ($this->getTicketList() as $ticket): ?>
+        <li>
+            <div class="ticket-info">
+                <div>
+                    <strong>Title:</strong> <?php echo $this->escapeHtml($ticket->getTitle()); ?>
+                </div>
+                <div>
+                    <strong>Status:</strong> <?php echo $this->escapeHtml($ticket->getIsOpen()) ? 'open' : 'closed'; ?>
+                </div>
+                <div>
+                    <a href="<?php echo $this->getUrl('tickets/view/index', ['ticket_id' => $ticket->getTicketId()]); ?>"
+                       class="action view">
+                        <span>View Ticket</span>
+                    </a>
+                </div>
+            </div>
+        </li>
+    <?php endforeach; ?>
+</ul>
+
+<a href="<?php echo $this->getUrl('tickets/create'); ?>" class="action create-ticket-button">
+    <span>Create Ticket</span>
+</a>

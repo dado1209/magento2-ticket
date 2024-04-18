@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">tickets_view_reply_form.view_reply_form_data_source</item>
+        </item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+    <settings>
+        <namespace>tickets_view_reply_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>tickets_view_reply_form.view_reply_form_data_source</dep>
+        </deps>
+        <buttons>
+            <button name="back">
+                <label>Back</label>
+                <class>back</class>
+                <url path="tickets/view/history"/>
+            </button>
+            <button name="save">
+                <label translate="true">Create Ticket Reply</label>
+                <class>save primary</class>
+            </button>
+        </buttons>
+    </settings>
+    <dataSource name="view_reply_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="tickets/create/ticketReplyPost"/>
+        </settings>
+        <dataProvider class="Favicode\Tickets\Ui\Component\ReplyForm\DataProvider" name="view_reply_form_data_source">
+            <settings>
+                <requestFieldName>ticket_id</requestFieldName>
+                <primaryFieldName>ticket_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <fieldset name="general">
+        <settings>
+            <label/>
+        </settings>
+        <input name="summary" sortOrder="10">
+            <settings>
+                <label translate="true">Summary</label>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataScope>summary</dataScope>
+            </settings>
+        </input>
+    </fieldset>
+</form>

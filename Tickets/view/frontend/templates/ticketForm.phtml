@@ -1,0 +1,42 @@
+<form action="<?php echo $this->getUrl('tickets/create/TicketPost'); ?>" method="post" id="ticket-form">
+
+    <div class="field required">
+        <label class="label" for="order_id">Select Order ID</label>
+        <div class="control">
+            <select id="order_id" name="order_id" class="input-select" required>
+                <?php foreach ($this->getOrders() as $order): ?>
+                    <option
+                        value="<?php echo $this->escapeHtml($order->getIncrementId()); ?>"><?php echo $this->escapeHtml($order->getIncrementId()); ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+    </div>
+
+    <div class="field required">
+        <label class="label" for="title">Ticket title</label>
+        <div class="control">
+            <input type="text" id="title" name="title" class="input-text" required>
+        </div>
+    </div>
+    <div class="field required">
+        <label class="label" for="summary">Summary</label>
+        <div class="control">
+            <textarea id="summary" name="summary" class="textarea" rows="5" required></textarea>
+        </div>
+    </div>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" title="Submit" class="action submit primary">
+                <span>Submit</span>
+            </button>
+        </div>
+    </div>
+</form>
+
+<script type="text/x-magento-init">
+    {
+        "#ticket-form": {
+            "validation": {}
+        }
+    }
+</script>

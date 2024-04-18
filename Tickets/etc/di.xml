@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="Favicode\Tickets\Api\Data\TicketInterface" type="Favicode\Tickets\Model\Ticket"/>
+    <preference for="Favicode\Tickets\Api\Data\TicketReplyInterface" type="Favicode\Tickets\Model\TicketReply"/>
+    <preference for="Favicode\Tickets\Api\TicketRepositoryInterface" type="Favicode\Tickets\Model\TicketRepository"/>
+    <preference for="Favicode\Tickets\Api\TicketReplyRepositoryInterface"
+                type="Favicode\Tickets\Model\TicketReplyRepository"/>
+
+</config>

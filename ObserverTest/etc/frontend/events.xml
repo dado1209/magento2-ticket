@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="my_module_event_before">
+        <observer name="myObserverName" instance="Favicode\ObserverTest\Observer\Observer1" />
+    </event>
+    <event name="my_module_event_after">
+        <observer name="Observer1" instance="Favicode\ObserverTest\Observer\Observer1" />
+        <observer name="Observer2" instance="Favicode\ObserverTest\Observer\Observer2" />
+    </event>
+</config>

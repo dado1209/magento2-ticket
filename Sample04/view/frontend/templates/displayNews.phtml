@@ -1,0 +1,14 @@
+<?php
+/**
+ * @var \Favicode\Sample03\Block\ListNews $block
+ * @var \Favicode\Sample03\Model\ResourceModel\News\ $news
+ */
+?>
+<ul>
+    <?php foreach ($block->getLast10News() as $news): ?>
+        <li>
+            <?php echo $news->getTitle(); ?>
+        </li>
+    <?php endforeach; ?>
+</ul>
+

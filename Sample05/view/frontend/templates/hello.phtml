@@ -1,0 +1,14 @@
+<?php
+/**
+ * @var \Favicode\Sample05\Block\Hello $block
+ */
+?>
+<h1><?= $block->getHelloWorld(); ?></h1>
+
+<p>Lorem ipsum sit amet ..</p>
+
+
+<!--//this is deprecated. escapeHtml method was overridden in Hello block-->
+<p><?= $block->escapeHtml("this is a test with special characters: <div>&amp; &gt; &lt;</div>") ?></p>
+
+<p><?= __("this is a test") ?></p>

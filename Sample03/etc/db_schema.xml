@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+
+    <table name="favicode_news" resource="default" engine="innodb" comment="News Table">
+
+        <column xsi:type="int" name="news_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="News ID"/>
+
+        <column xsi:type="varchar" name="title" nullable="false" length="255" comment="News Title"/>
+
+        <column xsi:type="datetime" name="created_at" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created at"/>
+
+        <column xsi:type="datetime" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated at"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="news_id"/>
+        </constraint>
+    </table>
+
+    <table name="favicode_news_comments" resource="default" engine="innodb" comment="News Comments Table">
+        <column xsi:type="int" name="comment_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="News Comment ID"/>
+
+        <column xsi:type="int" name="news_id" padding="10" unsigned="true" nullable="false"
+                comment="News ID"/>
+
+        <column xsi:type="text" name="text" nullable="false" comment="News Comment text"/>
+
+        <column xsi:type="datetime" name="created_at" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created at"/>
+
+        <column xsi:type="datetime" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated at"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="comment_id"/>
+        </constraint>
+
+        <constraint xsi:type="foreign" referenceId="FK_NEWS_NEWS_ID_COMMENTS_NEWS_NEWS_ID" table="favicode_news_comments"
+                    column="news_id" referenceTable="favicode_news" referenceColumn="news_id"
+                    onDelete="CASCADE"/>
+    </table>
+</schema>
