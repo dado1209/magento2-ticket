@@ -9,7 +9,7 @@
         </resources>
     </route>
 
-    <route url="/V1/website/:websiteId/tickets/:ticketId" method="POST">
+    <route url="/V1/website/:websiteId/tickets" method="POST">
         <service class="Favicode\Tickets\Model\Api\TicketApiManagement" method="createTicket"/>
         <resources>
             <resource ref="self"/>
