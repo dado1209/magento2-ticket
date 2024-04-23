@@ -28,9 +28,9 @@ class History extends Action
      * @param Session $customerSession
      */
     public function __construct(
-        Context          $context,
-        PageFactory      $resultPageFactory,
-        Session $customerSession
+        Context     $context,
+        PageFactory $resultPageFactory,
+        Session     $customerSession
     )
     {
         $this->resultPageFactory = $resultPageFactory;

@@ -10,6 +10,7 @@ use Magento\Customer\Model\Session;
 
 use Magento\Framework\Controller\Result\Redirect;
 use Magento\Framework\Controller\ResultFactory;
+
 class Index extends Action
 {
     /**
@@ -28,9 +29,9 @@ class Index extends Action
      * @param Session $customerSession
      */
     public function __construct(
-        Context          $context,
-        PageFactory      $resultPageFactory,
-        Session $customerSession
+        Context     $context,
+        PageFactory $resultPageFactory,
+        Session     $customerSession
     )
     {
         $this->resultPageFactory = $resultPageFactory;
@@ -41,7 +42,7 @@ class Index extends Action
     /**
      * @return Page | Redirect
      */
-    public function execute(): Page | Redirect
+    public function execute(): Page|Redirect
     {
         $redirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
         $redirect->setUrl('/customer/account/login');

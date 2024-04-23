@@ -45,13 +45,13 @@ class TicketReplyPost extends Action
      * @param TicketReplyRepositoryInterface $ticketReplyRepository
      */
     public function __construct(
-        Context                   $context,
-        Validator                 $formKeyValidator,
-        StoreManagerInterface     $storeManager,
-        TicketReplyFactory        $ticketReplyModelFactory,
-        TicketRepositoryInterface $ticketRepository,
-        Session                   $authSession,
-        UrlInterface              $backendUrl,
+        Context                        $context,
+        Validator                      $formKeyValidator,
+        StoreManagerInterface          $storeManager,
+        TicketReplyFactory             $ticketReplyModelFactory,
+        TicketRepositoryInterface      $ticketRepository,
+        Session                        $authSession,
+        UrlInterface                   $backendUrl,
         TicketReplyRepositoryInterface $ticketReplyRepository,
     )
     {
@@ -98,16 +98,13 @@ class TicketReplyPost extends Action
             $ticketReply->setTicketId($ticketId);
             $ticketReply->setIsUserAdmin(true);
             $this->ticketReplyRepository->save($ticketReply);
-        }
-        catch (ValidationException $e){
+        } catch (ValidationException $e) {
             $this->messageManager->addErrorMessage(__($e->getMessage()));
             return $redirect;
-        }
-        catch (InputException $e){
+        } catch (InputException $e) {
             $this->messageManager->addErrorMessage(__($e->getMessage()));
             return $redirect;
-        }
-        catch (Exception) {
+        } catch (Exception) {
             $this->messageManager->addErrorMessage(__('Something went wrong'));
             return $redirect;
         }
@@ -118,7 +115,8 @@ class TicketReplyPost extends Action
     /**
      * @throws InputException | ValidationException
      */
-    protected function getTicketReplyPostValues(){
+    protected function getTicketReplyPostValues()
+    {
         //throw error if invalid form key or invalid request
         if (!$this->formKeyValidator->validate($this->getRequest()) || !$this->getRequest()->isPost()) {
             throw new ValidationException(__('Invalid request'));

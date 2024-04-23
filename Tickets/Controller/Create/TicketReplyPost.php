@@ -114,26 +114,25 @@ class TicketReplyPost extends Action
             $ticketReply->setUserId($userId);
             $ticketReply->setTicketId($ticketId);
             $this->ticketReplyRepository->save($ticketReply);
-        }
-        catch (ValidationException $e){
+        } catch (ValidationException $e) {
             $this->messageManager->addErrorMessage(__($e->getMessage()));
             return $redirect;
-        }
-        catch (InputException $e){
+        } catch (InputException $e) {
             $this->messageManager->addErrorMessage(__($e->getMessage()));
             return $redirect;
-        }
-        catch (Exception) {
+        } catch (Exception) {
             $this->messageManager->addErrorMessage(__('Something went wrong'));
             return $redirect;
         }
         $this->messageManager->addSuccessMessage(__('Your reply has been created'));
         return $redirect;
     }
+
     /**
      * @throws InputException | ValidationException
      */
-    protected function getTicketReplyPostValues(){
+    protected function getTicketReplyPostValues()
+    {
         //throw error if invalid form key or invalid request
         if (!$this->formKeyValidator->validate($this->getRequest()) || !$this->getRequest()->isPost()) {
             throw new ValidationException(__('Invalid request'));

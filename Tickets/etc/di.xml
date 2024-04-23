@@ -8,5 +8,4 @@
     <preference for="Favicode\Tickets\Api\TicketRepositoryInterface" type="Favicode\Tickets\Model\TicketRepository"/>
     <preference for="Favicode\Tickets\Api\TicketReplyRepositoryInterface"
                 type="Favicode\Tickets\Model\TicketReplyRepository"/>
-
 </config>

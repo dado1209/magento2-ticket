@@ -3,6 +3,7 @@
 namespace Favicode\Tickets\Model;
 
 use Exception;
+use Favicode\Tickets\Api\Data\TicketInterface;
 use Favicode\Tickets\Api\TicketRepositoryInterface;
 use Favicode\Tickets\Model\ResourceModel\Ticket\CollectionFactory;
 use Magento\Framework\DataObject;
@@ -24,23 +25,28 @@ class TicketRepository implements TicketRepositoryInterface
         $this->ticketCollectionFactory = $ticketCollectionFactory;
     }
 
-    public function getById($ticketId, $websiteId): DataObject
+    public function getById($ticketId, $websiteId): TicketInterface
+
     {
-        return $this->ticketCollectionFactory->create()
+        $ticket = $this->ticketCollectionFactory->create()
             ->addFieldToFilter('website_id', $websiteId)
             ->addFieldToFilter('ticket_id', $ticketId)
             ->getFirstItem();
+        return $ticket;
+
     }
 
-    public function getList($userId, $websiteId): array
+    public function getList(int $userId, int $websiteId): array
     {
-        return $this->ticketCollectionFactory->create()
-            ->addFieldToFilter('website_id', $websiteId)
-            ->addFieldToFilter('user_id', $userId)
-            ->getItems();
+        $collection = $this->ticketCollectionFactory->create()
+            ->addFieldToFilter('website_id', $websiteId);
+        if($userId){
+            $collection->addFieldToFilter('user_id', $userId);
+        }
+        return $collection->getItems();
     }
 
-    public function save($ticket): void
+    public function save(TicketInterface $ticket): void
     {
         try {
             $this->ticketResource->save($ticket);
@@ -48,5 +54,6 @@ class TicketRepository implements TicketRepositoryInterface
             throw new CouldNotSaveException(__($exception->getMessage()));
         }
     }
+
 }
 

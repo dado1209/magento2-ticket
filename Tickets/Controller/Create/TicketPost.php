@@ -14,9 +14,8 @@ use Magento\Framework\Controller\Result\Redirect;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Data\Form\FormKey\Validator;
 use Magento\Framework\Exception\InputException;
-use Magento\Store\Model\StoreManagerInterface;
 use Magento\Sales\Model\ResourceModel\Order\CollectionFactory;
-
+use Magento\Store\Model\StoreManagerInterface;
 
 
 class TicketPost extends Action
@@ -46,7 +45,6 @@ class TicketPost extends Action
      * @var CollectionFactory
      */
     private CollectionFactory $orderCollectionFactory;
-
 
 
     /**
@@ -112,16 +110,13 @@ class TicketPost extends Action
             $ticket->setUserId($customerId);
             $ticket->setOrderId($orderId);
             $this->ticketRepository->save($ticket);
-        }
-        catch (ValidationException $e){
+        } catch (ValidationException $e) {
             $this->messageManager->addErrorMessage(__($e->getMessage()));
             return $redirect;
-        }
-        catch (InputException $e){
+        } catch (InputException $e) {
             $this->messageManager->addErrorMessage(__($e->getMessage()));
             return $redirect;
-        }
-        catch (Exception) {
+        } catch (Exception) {
             $this->messageManager->addErrorMessage(__('Something went wrong'));
             return $redirect;
         }
@@ -154,7 +149,8 @@ class TicketPost extends Action
     /**
      * @throws InputException | ValidationException
      */
-    protected function getTicketPostValues(){
+    protected function getTicketPostValues()
+    {
         //throw error if invalid form key or invalid request
         if (!$this->formKeyValidator->validate($this->getRequest()) || !$this->getRequest()->isPost()) {
             throw new ValidationException(__('Invalid request'));
