@@ -8,4 +8,6 @@
     <preference for="Favicode\Tickets\Api\TicketRepositoryInterface" type="Favicode\Tickets\Model\TicketRepository"/>
     <preference for="Favicode\Tickets\Api\TicketReplyRepositoryInterface"
                 type="Favicode\Tickets\Model\TicketReplyRepository"/>
+    <preference for="Favicode\Tickets\Api\Data\TicketSearchResultsInterface"
+                type="Magento\Framework\Api\SearchResults"/>
 </config>

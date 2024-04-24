@@ -3,6 +3,8 @@
 namespace Favicode\Tickets\Api;
 
 use Favicode\Tickets\Api\Data\TicketInterface;
+use Favicode\Tickets\Api\Data\TicketSearchResultsInterface;
+use Magento\Framework\Api\SearchCriteriaInterface;
 
 interface TicketApiManagementInterface
 {
@@ -16,18 +18,18 @@ interface TicketApiManagementInterface
      * @api
      *
      */
-    public function getTicketById(int $ticketId, int $websiteId): TicketInterface;
+    public function getById(int $ticketId, int $websiteId): TicketInterface;
 
     /**
      * get create ticket Api .
      *
      * @param int $websiteId
      *
-     * @return array
+     * @return TicketInterface
      * @api
      *
      */
-    public function createTicket(int $websiteId): array;
+    public function create(int $websiteId): TicketInterface;
 
     /**
      * update ticket Api data.
@@ -39,16 +41,36 @@ interface TicketApiManagementInterface
      * @api
      *
      */
-    public function updateTicketById(int $ticketId, int $websiteId): TicketInterface;
+    public function update(int $ticketId, int $websiteId): TicketInterface;
 
     /**
      * get ticket Api data.
      *
-     * @param int $websiteId
+     * @param SearchCriteriaInterface $searchCriteria
      *
-     * @return array
+     * @return \Magento\Framework\Api\SearchResultsInterface
      * @api
      *
      */
-    public function getTickets(int $websiteId): array;
+    public function getList(SearchCriteriaInterface $searchCriteria);
+
+    /**
+     * Delete ticket
+     *
+     * @param TicketInterface $ticket
+     * @return bool Will returned True if deleted
+     * @throws \Magento\Framework\Exception\StateException
+     * @api
+     */
+    public function delete(TicketInterface $ticket);
+
+    /**
+     * @param string $ticketId
+     * @return bool Will returned True if deleted
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     * @throws \Magento\Framework\Exception\StateException
+     * @api
+     */
+    public function deleteById($ticketId);
+
 }

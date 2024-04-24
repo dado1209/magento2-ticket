@@ -33,8 +33,8 @@ interface TicketRepositoryInterface
      * save ticket Api.
      *
      * @param TicketInterface $ticket
-     * @return void
+     * @return TicketInterface
      * @api
      */
-    public function save(TicketInterface $ticket): void;
+    public function save(TicketInterface $ticket): TicketInterface;
 }

@@ -3,28 +3,35 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
     <route url="/V1/website/:websiteId/tickets/:ticketId" method="GET">
-        <service class="Favicode\Tickets\Model\Api\TicketApiManagement" method="getTicketById"/>
+        <service class="Favicode\Tickets\Model\Api\TicketApiManagement" method="getById"/>
         <resources>
             <resource ref="self"/>
         </resources>
     </route>
 
     <route url="/V1/website/:websiteId/tickets" method="POST">
-        <service class="Favicode\Tickets\Model\Api\TicketApiManagement" method="createTicket"/>
+        <service class="Favicode\Tickets\Model\Api\TicketApiManagement" method="create"/>
         <resources>
             <resource ref="self"/>
         </resources>
     </route>
 
     <route url="/V1/website/:websiteId/tickets/:ticketId" method="PUT">
-        <service class="Favicode\Tickets\Model\Api\TicketApiManagement" method="updateTicketById"/>
+        <service class="Favicode\Tickets\Model\Api\TicketApiManagement" method="update"/>
         <resources>
             <resource ref="self"/>
         </resources>
     </route>
 
-    <route url="/V1/website/:websiteId/tickets" method="GET">
-        <service class="Favicode\Tickets\Model\Api\TicketApiManagement" method="getTickets"/>
+    <route url="/V1/tickets" method="GET">
+        <service class="Favicode\Tickets\Model\Api\TicketApiManagement" method="getList"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+    </route>
+
+    <route url="/V1/tickets/:ticketId" method="DELETE">
+        <service class="Favicode\Tickets\Model\Api\TicketApiManagement" method="deleteById"/>
         <resources>
             <resource ref="self"/>
         </resources>
