@@ -32,7 +32,6 @@
 
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="ticket_id"/>
-            <column name="website_id"/>
         </constraint>
 
         <constraint xsi:type="foreign" referenceId="FK_TICKETS_TICKETS_ID_CUSTOMER_ENTITY_ENTITY_ID"

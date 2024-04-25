@@ -2,21 +2,21 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
-    <route url="/V1/website/:websiteId/tickets/:ticketId" method="GET">
+    <route url="/V1/tickets/:ticketId" method="GET">
         <service class="Favicode\Tickets\Model\Api\TicketApiManagement" method="getById"/>
         <resources>
             <resource ref="self"/>
         </resources>
     </route>
 
-    <route url="/V1/website/:websiteId/tickets" method="POST">
+    <route url="/V1/tickets" method="POST">
         <service class="Favicode\Tickets\Model\Api\TicketApiManagement" method="create"/>
         <resources>
             <resource ref="self"/>
         </resources>
     </route>
 
-    <route url="/V1/website/:websiteId/tickets/:ticketId" method="PUT">
+    <route url="/V1/tickets/:ticketId" method="PUT">
         <service class="Favicode\Tickets\Model\Api\TicketApiManagement" method="update"/>
         <resources>
             <resource ref="self"/>

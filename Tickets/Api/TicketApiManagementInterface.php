@@ -12,36 +12,32 @@ interface TicketApiManagementInterface
      * get ticket Api data.
      *
      * @param int $ticketId
-     * @param int $websiteId
      *
      * @return TicketInterface
      * @api
      *
      */
-    public function getById(int $ticketId, int $websiteId): TicketInterface;
+    public function getById(int $ticketId): TicketInterface;
 
     /**
      * get create ticket Api .
      *
-     * @param int $websiteId
-     *
      * @return TicketInterface
      * @api
      *
      */
-    public function create(int $websiteId): TicketInterface;
+    public function create(): TicketInterface;
 
     /**
      * update ticket Api data.
      *
      * @param int $ticketId
-     * @param int $websiteId
      *
      * @return TicketInterface
      * @api
      *
      */
-    public function update(int $ticketId, int $websiteId): TicketInterface;
+    public function update(int $ticketId): TicketInterface;
 
     /**
      * get ticket Api data.

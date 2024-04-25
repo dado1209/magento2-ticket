@@ -56,10 +56,10 @@ class TicketApiManagement implements TicketApiManagementInterface
      * @api
      *
      */
-    public function getById(int $ticketId, int $websiteId): TicketInterface
+    public function getById(int $ticketId): TicketInterface
     {
         //add some business logic here..
-        $ticket = $this->ticketRepository->getById($ticketId, $websiteId);
+        $ticket = $this->ticketRepository->getById($ticketId, 0);
         if (empty($ticket->getId())) {
             throw new NotFoundException('Ticket not found');
         }
@@ -69,13 +69,12 @@ class TicketApiManagement implements TicketApiManagementInterface
     /**
      * create ticket Api .
      *
-     * @param int $websiteId
      *
      * @return TicketInterface
      * @api
      *
      */
-    public function create(int $websiteId): TicketInterface
+    public function create(): TicketInterface
     {
         //todo: find out how magento sets response code for exceptions
         $ticket = $this->ticketModelFactory->create();
@@ -83,8 +82,9 @@ class TicketApiManagement implements TicketApiManagementInterface
         //add some validation logic later
         $title = $postValues->title;
         $summary = $postValues->summary;
-        if (empty($title) || empty($summary)) {
-            throw new ValidationException('Title and summary are required fields', 409);
+        $websiteId = $postValues->website_id;
+        if (empty($title) || empty($summary) || empty($websiteId)) {
+            throw new ValidationException('Title, summary and website id are required fields', 409);
         }
         $ticket->setTitle($title);
         $ticket->setSummary($summary);
@@ -104,9 +104,9 @@ class TicketApiManagement implements TicketApiManagementInterface
      * @api
      *
      */
-    public function update(int $ticketId, int $websiteId): TicketInterface
+    public function update(int $ticketId): TicketInterface
     {
-        $ticket = $this->ticketRepository->getById($ticketId, $websiteId);
+        $ticket = $this->ticketRepository->getById($ticketId, 0);
         $postValues = json_decode($this->request->getContent());
         if (!empty($postValues->title)) {
             $ticket->setTitle($postValues->title);
